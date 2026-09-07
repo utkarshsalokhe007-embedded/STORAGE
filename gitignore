@@ -1,0 +1,32 @@
+# Build output
+Debug/
+Release/
+build/
+
+# Object/dependency files
+*.o
+*.d
+*.su
+*.map
+*.elf
+*.bin
+*.hex
+*.list
+
+# Eclipse / STM32CubeIDE project metadata
+.metadata/
+.settings/
+.cproject
+.project
+.launch
+
+# STM32CubeMX generated backups
+*.ioc.bak
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Editor files
+*.swp
+*~
