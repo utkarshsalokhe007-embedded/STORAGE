@@ -67,9 +67,9 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  * @param[in]         -
  * @param[in]         -
  *
- * @return            -
+ * @return            - none
  *
- * @Note              -
+ * @Note              - use this function to clear the active state of gpio to bring back to default state use this function
 
  */
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
@@ -82,15 +82,17 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  /*********************************************************************
  * @fn      		  - GPIO_ReadFromInputPin
  *
- * @brief             -
+ * @brief             - Reads the current logic level of a single input pin from the
+ *                       port's input data register (IDR)
  *
- * @param[in]         -
- * @param[in]         -
+ * @param[in]         - Base address of the GPIO port (pGPIOx)
+ * @param[in]         - Pin number to read (0-15), e.g. PinNumber = 5 reads pin 5
  * @param[in]         -
  *
- * @return            -   0 or 1
+ * @return            - 0 or 1, representing the logic level read from the pin
  *
- * @Note              -
+ * @Note              - The pin must be configured as input mode for this to return
+ *                       a meaningful value
 
  */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber)
@@ -99,13 +101,15 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber)
 /*********************************************************************
  * @fn      		  - GPIO_ReadFromInputPort
  *
- * @brief             -
+ * @brief             - Reads the current logic levels of all 16 pins of a GPIO port
+ *                       at once from the port's input data register (IDR)
  *
- * @param[in]         -
+ * @param[in]         - Base address of the GPIO port (pGPIOx)
  * @param[in]         -
  * @param[in]         -
  *
- * @return            -
+ * @return            - 16-bit value where each bit represents the logic level of the
+ *                       corresponding pin (bit 0 = pin 0, bit 1 = pin 1, and so on)
  *
  * @Note              -
 
@@ -115,15 +119,17 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx){
 /*********************************************************************
  * @fn      		  - GPIO_WriteToOutputPin
  *
- * @brief             -
+ * @brief             - Sets a single output pin to HIGH or LOW by writing to the
+ *                       port's output data register (ODR)
  *
- * @param[in]         -
- * @param[in]         -
- * @param[in]         -
+ * @param[in]         - Base address of the GPIO port (pGPIOx)
+ * @param[in]         - Pin number to write to (0-15)
+ * @param[in]         - Value to write - GPIO_PIN_SET (1) or GPIO_PIN_RESET (0)
  *
- * @return            -
+ * @return            - none
  *
- * @Note              -
+ * @Note              - The pin must be configured as output mode for this to have
+ *                       any physical effect
 
  */
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber,uint8_t Value){
@@ -131,15 +137,19 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber,uint8_t Value
 /*********************************************************************
  * @fn      		  - GPIO_WriteToOutputPort
  *
- * @brief             -
+ * @brief             - Writes a 16-bit value to the entire GPIO port at once by
+ *                       writing directly to the port's output data register (ODR)
  *
- * @param[in]         -
- * @param[in]         -
+ * @param[in]         - Base address of the GPIO port (pGPIOx)
+ * @param[in]         - 16-bit value to write - each bit sets the corresponding pin's
+ *                       output level (bit 0 = pin 0, bit 1 = pin 1, and so on)
  * @param[in]         -
  *
- * @return            -
+ * @return            - none
  *
- * @Note              -
+ * @Note              - This overwrites all 16 pins of the port simultaneously - any
+ *                       pins not configured as output will be unaffected on the
+ *                       physical pin, but their ODR bit is still written
 
  */
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx,uint8_t Value){
@@ -147,20 +157,22 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx,uint8_t Value){
 /*********************************************************************
  * @fn      		  - GPIO_ToggleOutputPin
  *
- * @brief             -
+ * @brief             - Inverts the current output state of a single pin (HIGH becomes
+ *                       LOW and vice versa) by flipping its bit in the output data
+ *                       register (ODR)
  *
- * @param[in]         -
- * @param[in]         -
+ * @param[in]         - Base address of the GPIO port (pGPIOx)
+ * @param[in]         - Pin number to toggle (0-15)
  * @param[in]         -
  *
- * @return            -
+ * @return            - none
  *
- * @Note              -
+ * @Note              - The pin must be configured as output mode for this to have
+ *                       any physical effect
 
  */
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber){
 }
-
  /*
  *IRQ Configuration and Handling
  */
