@@ -18,46 +18,52 @@ all above will be used by user application
  /*********************************************************************
  * @fn      		  - GPIO_PeriClockControl
  *
- * @brief             - This function enables or disables peripheral clock for the given GPIO port
+ * @brief             - This function enables or disables peripheral clock for a given GPIO port by setting/clearing the corresponding bit in RCC's AHB1ENR register
  *
- * @param[in]         - base address of the gpio peripheral
- * @param[in]         - ENABLE or DISABLE macros
+ * @param[in]         - base address of the gpio peripheral(GPIOx)
+ * @param[in]         - ENABLE or DISABLE macros (1/0)
  * @param[in]         -
  *
- * @return            -  none
+ * @return            -  none / as its void it has no return value
  *
- * @Note              -  none
+ * @Note              -  In STM32 clock must be enabled before working on any peripheral so before init or any other function always enable reset and clock control
 
  */
+
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
 }
+
  /*
  *Init and DeInit
  */
  /*********************************************************************
- * @fn      		  - GPIO_Init
+ * @fn      		  - Configures a GPIO pin's mode, output speed, pull-up/pull-down, output type, and alternate function according to the settings provided in pGPIOHandle
  *
- * @brief             -
+ * @brief             - This function is responsible for initialisation the gpio
  *
+ * @param[in]         - Pointer to a GPIO handle structure containing the target port (pGPIOx) and the desired pin configuration (GPIO_PinConfig)
  * @param[in]         -
  * @param[in]         -
- * @param[in]         -
  *
- * @return            -
+ * @return            -none
  *
- * @Note              -
+ * @Note              - GPIO_PeriClockControl() must be called for the target port before calling
+        this function; otherwise the peripheral clock is not active and writes
+        to its configuration registers will have no effect.
 
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
 }
+
+
 /*********************************************************************
  * @fn      		  - GPIO_DeInit
  *
- * @brief             -
+ * @brief             - This function is responsible to wipe out entire gpio using AHB1RSTR register 
  *
- * @param[in]         -
+ * @param[in]         - 
  * @param[in]         -
  * @param[in]         -
  *
@@ -87,7 +93,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  * @Note              -
 
  */
-uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber);
+uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber)
 {
 }
 /*********************************************************************
